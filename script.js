@@ -98,9 +98,11 @@ openBtn.addEventListener('click', () => {
 });
 
 // ---- Countdown Gate Logic ----
+let gateIntervalId = null;
+
 function startGateCountdown() {
     updateGateTimer();
-    setInterval(updateGateTimer, 1000);
+    gateIntervalId = setInterval(updateGateTimer, 1000);
 }
 
 function updateGateTimer() {
@@ -108,7 +110,11 @@ function updateGateTimer() {
     const diff = VALENTINE_DATE - now;
 
     if (diff <= 0) {
-        // Countdown just hit zero — reveal!
+        // Countdown just hit zero — stop interval and reveal!
+        if (gateIntervalId) {
+            clearInterval(gateIntervalId);
+            gateIntervalId = null;
+        }
         showGateRevealed();
         return;
     }
@@ -148,6 +154,7 @@ function showGateRevealed() {
     btn.addEventListener('click', () => {
         countdownGate.classList.add('fade-out');
         mainContent.classList.remove('hidden');
+        switchToBgMusic();
 
         setTimeout(() => {
             countdownGate.style.display = 'none';
@@ -162,12 +169,24 @@ const yesMusic = document.getElementById('yes-music');
 let currentTrack = countdownMusic; // starts with countdown song
 
 function playTrack(track) {
-    track.play().then(() => {
-        isMusicPlaying = true;
-        musicToggle.classList.add('playing');
-    }).catch(() => {
-        console.log('Music playback blocked. Click the music button.');
-    });
+    track.currentTime = 0;
+    var playPromise = track.play();
+    if (playPromise !== undefined) {
+        playPromise.then(() => {
+            isMusicPlaying = true;
+            musicToggle.classList.add('playing');
+        }).catch((err) => {
+            console.warn('Music playback issue:', err.message);
+            // Retry on next user interaction
+            document.addEventListener('click', function retryPlay() {
+                track.play().then(() => {
+                    isMusicPlaying = true;
+                    musicToggle.classList.add('playing');
+                }).catch(() => {});
+                document.removeEventListener('click', retryPlay);
+            }, { once: true });
+        });
+    }
 }
 
 // Called when "Open Your Surprise" is clicked — plays countdown song

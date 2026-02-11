@@ -5,7 +5,10 @@
       "Bash(pip3 install:*)",
       "Bash(yt-dlp:*)",
       "Bash(ffprobe:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(gh api:*)",
+      "WebFetch(domain:rameshsurya10.github.io)",
+      "Bash(git push:*)"
     ]
   }
 }
