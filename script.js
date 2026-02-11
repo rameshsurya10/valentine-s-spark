@@ -16,7 +16,6 @@ const entranceOverlay = document.getElementById('entrance-overlay');
 const openBtn = document.getElementById('open-btn');
 const mainContent = document.getElementById('main-content');
 const musicToggle = document.getElementById('music-toggle');
-const bgMusic = document.getElementById('bg-music');
 const btnYes = document.getElementById('btn-yes');
 const btnNo = document.getElementById('btn-no');
 const yesResponse = document.getElementById('yes-response');
@@ -95,16 +94,15 @@ openBtn.addEventListener('click', () => {
 });
 
 // ---- Music Control ----
+const bgMusic = document.getElementById('bg-music');
+
 function tryPlayMusic() {
-    if (bgMusic.src || bgMusic.querySelector('source')) {
-        bgMusic.play().then(() => {
-            isMusicPlaying = true;
-            musicToggle.classList.add('playing');
-        }).catch(() => {
-            // Music file not found or blocked - that's okay
-            console.log('Music file not loaded. Add your song to assets/music.mp3');
-        });
-    }
+    bgMusic.play().then(() => {
+        isMusicPlaying = true;
+        musicToggle.classList.add('playing');
+    }).catch(() => {
+        console.log('Music playback was blocked. Click the music button to play.');
+    });
 }
 
 musicToggle.addEventListener('click', () => {
@@ -450,11 +448,10 @@ const observer = new IntersectionObserver((entries) => {
 // Observe section titles
 document.querySelectorAll('.section-title').forEach(el => observer.observe(el));
 
-// Observe timeline items
-document.querySelectorAll('.timeline-item[data-animate]').forEach(el => observer.observe(el));
+// Journey Ride no longer uses observer (has its own carousel logic)
 
-// Observe letter paper
-document.querySelectorAll('.letter-paper').forEach(el => observer.observe(el));
+// Observe letter card
+document.querySelectorAll('.letter-card').forEach(el => observer.observe(el));
 
 // Observe proposal elements
 document.querySelectorAll('.proposal-title, .proposal-question, .proposal-buttons').forEach(el => {
@@ -494,6 +491,127 @@ window.addEventListener('scroll', () => {
 
 // ---- Prevent right-click (keep it a surprise!) ----
 document.addEventListener('contextmenu', (e) => e.preventDefault());
+
+// ---- Journey Ride Carousel ----
+(function initJourneyRide() {
+    const track = document.getElementById('journey-track');
+    const stops = document.querySelectorAll('.journey-stop');
+    const dots = document.querySelectorAll('.journey-dot');
+    const milestones = document.querySelectorAll('.milestone');
+    const roadFill = document.getElementById('journey-road-fill');
+    const prevBtn = document.getElementById('journey-prev');
+    const nextBtn = document.getElementById('journey-next');
+
+    if (!track || stops.length === 0) return;
+
+    let current = 0;
+    const total = stops.length;
+    let autoTimer = null;
+    let touchStartX = 0;
+
+    function goToSlide(index) {
+        if (index < 0 || index >= total) return;
+
+        // Remove active from old
+        stops[current].classList.remove('active');
+        dots[current].classList.remove('active');
+        milestones[current].classList.remove('active');
+
+        current = index;
+
+        // Slide track
+        track.style.transform = `translateX(-${current * 100}%)`;
+
+        // Activate new stop
+        stops[current].classList.add('active');
+        dots[current].classList.add('active');
+        milestones[current].classList.add('active');
+
+        // Update milestone passed states
+        milestones.forEach((m, i) => {
+            m.classList.toggle('passed', i < current);
+        });
+
+        // Update road fill
+        const progress = (current / (total - 1)) * 100;
+        roadFill.style.width = progress + '%';
+
+        // Update arrow states
+        prevBtn.disabled = current === 0;
+        nextBtn.disabled = current === total - 1;
+
+        // Re-process Tenor embeds for visible slide
+        if (window.tenor && window.tenor.Gif) {
+            window.tenor.Gif.autoInit();
+        }
+    }
+
+    // Arrow clicks
+    prevBtn.addEventListener('click', () => { goToSlide(current - 1); resetAuto(); });
+    nextBtn.addEventListener('click', () => { goToSlide(current + 1); resetAuto(); });
+
+    // Dot clicks
+    dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+            goToSlide(parseInt(dot.dataset.index));
+            resetAuto();
+        });
+    });
+
+    // Milestone clicks
+    milestones.forEach(m => {
+        m.addEventListener('click', () => {
+            goToSlide(parseInt(m.dataset.stop));
+            resetAuto();
+        });
+    });
+
+    // Keyboard
+    document.addEventListener('keydown', (e) => {
+        const journeySection = document.getElementById('timeline');
+        const rect = journeySection.getBoundingClientRect();
+        const inView = rect.top < window.innerHeight && rect.bottom > 0;
+        if (!inView) return;
+
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { goToSlide(current + 1); resetAuto(); }
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { goToSlide(current - 1); resetAuto(); }
+    });
+
+    // Touch swipe
+    track.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    track.addEventListener('touchend', (e) => {
+        const diff = touchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) {
+            if (diff > 0) goToSlide(current + 1);
+            else goToSlide(current - 1);
+            resetAuto();
+        }
+    }, { passive: true });
+
+    // Auto-advance
+    function startAuto() {
+        autoTimer = setInterval(() => {
+            if (current < total - 1) goToSlide(current + 1);
+            else goToSlide(0);
+        }, 5000);
+    }
+
+    function resetAuto() {
+        clearInterval(autoTimer);
+        startAuto();
+    }
+
+    // Pause on hover
+    const viewport = document.querySelector('.journey-viewport');
+    if (viewport) {
+        viewport.addEventListener('mouseenter', () => clearInterval(autoTimer));
+        viewport.addEventListener('mouseleave', () => startAuto());
+    }
+
+    // Initialize
+    goToSlide(0);
+    startAuto();
+})();
 
 // ---- Console Easter Egg ----
 console.log('%c💖 Made with love 💖', 'color: #e8506a; font-size: 20px; font-weight: bold;');

@@ -236,13 +236,40 @@ body {
 }
 
 .entrance-gif {
-    animation: heartBeat 1.5s ease-in-out infinite;
     margin-bottom: 25px;
     filter: drop-shadow(0 8px 25px rgba(232, 80, 106, 0.3));
 }
 
 .tenor-entrance {
     max-width: 200px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.tenor-entrance::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0) 30%,
+        rgba(255, 255, 255, 0.4) 50%,
+        rgba(255, 255, 255, 0) 70%,
+        transparent 100%
+    );
+    transform: skewX(-20deg);
+    animation: slideShine 3s ease-in-out infinite;
+}
+
+@keyframes slideShine {
+    0% { left: -100%; }
+    60% { left: 150%; }
+    100% { left: 150%; }
 }
 
 .entrance-title {
@@ -542,82 +569,105 @@ body {
    ============================================ */
 .anniversary-container {
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 }
 
 .anniversary-circle {
-    width: 200px;
-    height: 200px;
-    margin: 0 auto 50px;
-    background: linear-gradient(135deg, var(--rose), #d4456a, var(--rose-dark));
+    width: 180px;
+    height: 180px;
+    margin: 0 auto 30px;
+    background: linear-gradient(135deg, #f7a8b8, var(--rose), var(--rose-dark));
     border-radius: 50%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     box-shadow:
-        0 10px 40px rgba(232, 80, 106, 0.25),
-        0 0 60px rgba(232, 80, 106, 0.1);
+        0 10px 40px rgba(232, 80, 106, 0.3),
+        0 0 80px rgba(232, 80, 106, 0.15),
+        inset 0 -4px 12px rgba(192, 53, 77, 0.3),
+        inset 0 4px 12px rgba(255, 255, 255, 0.15);
     animation: anniversaryPulse 3s ease-in-out infinite;
-    border: 4px solid var(--rose-light);
+    border: 3px solid rgba(255, 255, 255, 0.3);
     position: relative;
 }
 
 .anniversary-circle::before {
     content: '';
     position: absolute;
-    top: -8px;
-    left: -8px;
-    right: -8px;
-    bottom: -8px;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
     border-radius: 50%;
-    border: 2px solid rgba(232, 80, 106, 0.2);
-    animation: anniversaryRing 3s ease-in-out infinite;
+    border: 2px dashed rgba(232, 80, 106, 0.25);
+    animation: anniversaryRing 6s linear infinite;
+}
+
+.anniversary-circle::after {
+    content: '';
+    position: absolute;
+    top: -16px;
+    left: -16px;
+    right: -16px;
+    bottom: -16px;
+    border-radius: 50%;
+    border: 1px solid rgba(232, 80, 106, 0.1);
+    animation: anniversaryRing 8s linear infinite reverse;
 }
 
 @keyframes anniversaryPulse {
-    0%, 100% { transform: scale(1); box-shadow: 0 10px 40px rgba(232, 80, 106, 0.2), 0 0 40px rgba(232, 80, 106, 0.08); }
-    50% { transform: scale(1.05); box-shadow: 0 15px 50px rgba(232, 80, 106, 0.3), 0 0 60px rgba(232, 80, 106, 0.15); }
+    0%, 100% { transform: scale(1); box-shadow: 0 10px 40px rgba(232, 80, 106, 0.25), 0 0 60px rgba(232, 80, 106, 0.1), inset 0 -4px 12px rgba(192, 53, 77, 0.3), inset 0 4px 12px rgba(255, 255, 255, 0.15); }
+    50% { transform: scale(1.04); box-shadow: 0 15px 50px rgba(232, 80, 106, 0.35), 0 0 80px rgba(232, 80, 106, 0.2), inset 0 -4px 12px rgba(192, 53, 77, 0.3), inset 0 4px 12px rgba(255, 255, 255, 0.15); }
 }
 
 @keyframes anniversaryRing {
-    0%, 100% { opacity: 0.5; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.05); }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 .anniversary-years {
     font-family: 'Playfair Display', serif;
-    font-size: 5rem;
+    font-size: 4.2rem;
     font-weight: 700;
     color: var(--white);
     line-height: 1;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
 }
 
 .anniversary-label {
     font-family: 'Lato', sans-serif;
-    font-size: 1.1rem;
-    color: rgba(255, 255, 255, 0.9);
-    letter-spacing: 3px;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.95);
+    letter-spacing: 4px;
     text-transform: uppercase;
-    margin-top: 5px;
+    margin-top: 4px;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 }
 
 .anniversary-stats {
     display: flex;
     justify-content: center;
-    gap: clamp(30px, 5vw, 60px);
+    gap: clamp(15px, 4vw, 40px);
     flex-wrap: wrap;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
+    width: 100%;
 }
 
 .stat-item {
     opacity: 0;
     transform: translateY(30px);
     transition: all 1s ease;
-    background: rgba(252, 228, 236, 0.5);
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
     border-radius: 16px;
-    padding: 20px 25px;
-    box-shadow: 0 4px 15px rgba(232, 80, 106, 0.08);
-    border: 1px solid rgba(232, 80, 106, 0.1);
+    padding: 18px 20px;
+    min-width: 130px;
+    box-shadow: 0 4px 20px rgba(232, 80, 106, 0.1);
+    border: 1px solid rgba(232, 80, 106, 0.12);
 }
 
 .stat-item.visible {
@@ -627,14 +677,14 @@ body {
 
 .stat-number {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
     font-weight: 700;
     color: var(--rose-dark);
     line-height: 1;
 }
 
 .stat-label {
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     color: var(--text-soft);
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -661,54 +711,52 @@ body {
 /* ============================================
    LOVE LETTER SECTION
    ============================================ */
-.letter-paper {
-    background: var(--white);
-    border-radius: 16px;
-    padding: clamp(30px, 5vw, 60px);
+.letter-card {
+    max-width: 850px !important;
+    background: linear-gradient(165deg, #fffaf8, #fff5f7, #fff0f3) !important;
+    border: none !important;
+    border-top: 4px solid transparent !important;
+    border-image: linear-gradient(90deg, var(--rose-light), var(--rose), var(--gold), var(--rose), var(--rose-light)) 1 !important;
+    border-image-slice: 1 !important;
+    padding: clamp(40px, 7vw, 80px) clamp(35px, 6vw, 70px) !important;
     box-shadow:
-        0 10px 40px rgba(232, 80, 106, 0.08),
-        0 2px 8px rgba(0, 0, 0, 0.04);
+        0 20px 60px rgba(232, 80, 106, 0.1),
+        0 4px 15px rgba(0, 0, 0, 0.04),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
     position: relative;
-    max-width: 650px;
-    margin: 0 auto;
-    opacity: 0;
-    transform: translateY(40px) rotate(-1deg);
-    transition: all 1.2s ease;
-    border: 1px solid rgba(232, 80, 106, 0.1);
 }
 
-.letter-paper.visible {
-    opacity: 1;
-    transform: translateY(0) rotate(-1deg);
-}
-
-.letter-paper::before {
+.letter-card::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--rose-light), var(--rose), var(--gold), var(--rose), var(--rose-light));
-    border-radius: 16px 16px 0 0;
-}
-
-.letter-paper::after {
-    content: '';
-    position: absolute;
-    top: -8px;
-    right: 30px;
-    width: 40px;
-    height: 40px;
+    top: -12px;
+    right: 40px;
+    width: 44px;
+    height: 44px;
     background: linear-gradient(135deg, var(--rose), var(--rose-dark));
-    clip-path: path('M20 35 C10 28 0 20 0 12 A8 8 0 0 1 20 8 A8 8 0 0 1 40 12 C40 20 30 28 20 35Z');
-    filter: drop-shadow(0 2px 4px rgba(232,80,106,0.3));
+    clip-path: path('M22 38 C11 30 0 22 0 13 A9 9 0 0 1 22 9 A9 9 0 0 1 44 13 C44 22 33 30 22 38Z');
+    filter: drop-shadow(0 3px 6px rgba(232, 80, 106, 0.35));
+    z-index: 2;
+}
+
+.letter-card::after {
+    content: '';
+    position: absolute;
+    top: -12px;
+    left: 40px;
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, var(--rose-light), var(--rose));
+    clip-path: path('M22 38 C11 30 0 22 0 13 A9 9 0 0 1 22 9 A9 9 0 0 1 44 13 C44 22 33 30 22 38Z');
+    filter: drop-shadow(0 3px 6px rgba(232, 80, 106, 0.25));
+    z-index: 2;
+    opacity: 0.7;
 }
 
 .letter-content p {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(0.95rem, 2vw, 1.1rem);
-    line-height: 2;
+    font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+    line-height: 2.1;
     color: var(--text-dark);
     margin-bottom: 20px;
     text-align: left;
@@ -721,165 +769,261 @@ body {
 
 .letter-greeting {
     font-family: 'Great Vibes', cursive !important;
-    font-size: clamp(1.5rem, 3vw, 2rem) !important;
+    font-size: clamp(2rem, 4vw, 2.8rem) !important;
     color: var(--rose) !important;
-    margin-bottom: 25px !important;
+    margin-bottom: 30px !important;
 }
 
 .letter-closing {
-    margin-top: 30px !important;
+    margin-top: 35px !important;
     font-style: italic;
     color: var(--text-soft) !important;
 }
 
 .letter-signature {
     font-family: 'Great Vibes', cursive !important;
-    font-size: 1.5rem !important;
+    font-size: 2rem !important;
     color: var(--rose) !important;
     text-align: right !important;
 }
 
 /* ============================================
-   TIMELINE SECTION
+   JOURNEY RIDE SECTION
    ============================================ */
-.timeline-section {
-    padding: 80px 20px;
+/* ---- JOURNEY RIDE CAROUSEL ---- */
+.journey-section { padding: 60px 20px; }
+
+.journey-content {
+    max-width: 900px !important;
+    padding: 40px 30px 30px !important;
+    overflow: visible !important;
 }
 
-/* Timeline needs wider card */
-.timeline-section .section-content {
-    max-width: 900px;
-}
-
-.timeline {
+/* Road Progress Bar */
+.journey-road {
     position: relative;
-    max-width: 700px;
-    margin: 0 auto;
-    padding: 20px 0;
+    height: 6px;
+    background: rgba(232, 80, 106, 0.12);
+    border-radius: 6px;
+    margin-bottom: 12px;
+    overflow: visible;
 }
 
-.timeline-line {
+.journey-road-fill {
     position: absolute;
-    left: 50%;
     top: 0;
-    bottom: 0;
-    width: 3px;
-    background: linear-gradient(180deg, var(--rose-light), var(--rose), var(--rose-light));
-    transform: translateX(-50%);
-    border-radius: 3px;
-}
-
-.timeline-item {
-    position: relative;
-    width: 50%;
-    padding: 20px;
-    opacity: 0;
-    transition: all 0.8s ease;
-}
-
-.timeline-item.left {
     left: 0;
-    padding-right: 50px;
-    text-align: right;
-    transform: translateX(-50px);
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--rose-light), var(--rose), var(--rose-dark));
+    border-radius: 6px;
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 12px rgba(232, 80, 106, 0.4);
 }
 
-.timeline-item.right {
-    left: 50%;
-    padding-left: 50px;
-    text-align: left;
-    transform: translateX(50px);
-}
-
-.timeline-item.visible {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-.timeline-dot {
+.journey-road-fill::after {
+    content: '';
     position: absolute;
-    top: 30px;
-    width: 44px;
-    height: 44px;
-    background: var(--white);
-    border: 3px solid var(--rose);
+    right: -6px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 14px;
+    height: 14px;
+    background: var(--rose);
+    border: 3px solid var(--white);
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(232, 80, 106, 0.5);
+}
+
+/* Milestones along the road */
+.journey-milestones {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    top: 10px;
+}
+
+.milestone {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: rgba(232, 80, 106, 0.3);
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 2px 6px;
+    border-radius: 8px;
+}
+
+.milestone.active {
+    color: var(--rose-dark);
+    background: rgba(232, 80, 106, 0.08);
+}
+
+.milestone.passed {
+    color: var(--rose);
+}
+
+/* Carousel Viewport */
+.journey-viewport {
+    overflow: hidden;
+    margin: 20px 0;
+    border-radius: 20px;
+}
+
+.journey-track {
+    display: flex;
+    transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+}
+
+/* Individual Stop Card */
+.journey-stop {
+    min-width: 100%;
+    flex-shrink: 0;
+    padding: 30px;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px) scale(0.96);
+    transition: opacity 0.5s ease 0.15s, transform 0.5s ease 0.15s;
+}
+
+.journey-stop.active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* Stop Icon (SVG sticker) */
+.stop-icon {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 15px;
+    background: linear-gradient(135deg, rgba(252, 228, 236, 0.8), rgba(255, 255, 255, 0.9));
+    border: 2px solid rgba(232, 80, 106, 0.15);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.1rem;
-    box-shadow: 0 3px 15px rgba(232, 80, 106, 0.15);
-    z-index: 2;
-    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(232, 80, 106, 0.12);
 }
 
-.timeline-item:hover .timeline-dot {
-    transform: scale(1.15);
-    box-shadow: 0 5px 25px rgba(232, 80, 106, 0.25);
+.sticker-journey {
+    width: 36px;
+    height: 36px;
 }
 
-.sticker-timeline { width: 32px; height: 32px; }
-
-.timeline-item.left .timeline-dot {
-    right: -20px;
-}
-
-.timeline-item.right .timeline-dot {
-    left: -20px;
-}
-
-.timeline-card {
-    background: rgba(252, 228, 236, 0.3);
-    border-radius: 16px;
-    padding: 28px;
-    box-shadow: 0 4px 20px rgba(232, 80, 106, 0.06);
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
-    border: 1px solid rgba(232, 80, 106, 0.1);
-    position: relative;
-    overflow: hidden;
-}
-
-.timeline-card::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--rose-light), var(--rose), var(--rose-light));
-    opacity: 0;
-    transition: opacity 0.4s ease;
-}
-
-.timeline-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 35px rgba(232, 80, 106, 0.12);
-}
-
-.timeline-card:hover::after {
-    opacity: 1;
-}
-
-.timeline-date {
+/* Year Badge */
+.stop-year {
+    display: inline-block;
     font-family: 'Lato', sans-serif;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 700;
     color: var(--rose);
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
+    background: rgba(232, 80, 106, 0.06);
+    padding: 4px 16px;
+    border-radius: 20px;
+    margin-bottom: 10px;
 }
 
-.timeline-card h3 {
+.stop-title {
     font-family: 'Playfair Display', serif;
-    font-size: 1.2rem;
+    font-size: clamp(1.3rem, 3vw, 1.6rem);
     color: var(--text-dark);
-    margin: 8px 0 10px;
+    margin-bottom: 10px;
 }
 
-.timeline-card p {
-    font-size: 0.95rem;
+.stop-text {
+    font-size: clamp(0.9rem, 2vw, 1rem);
     color: var(--text-body);
-    line-height: 1.7;
+    line-height: 1.8;
+    max-width: 500px;
+    margin: 0 auto 15px;
+}
+
+/* Tenor GIF inside stop */
+.journey-stop .tenor-timeline {
+    max-width: 220px;
+    margin: 0 auto;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(232, 80, 106, 0.1);
+}
+
+/* Navigation */
+.journey-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 5px;
+}
+
+.journey-arrow {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 2px solid rgba(232, 80, 106, 0.2);
+    background: rgba(255, 255, 255, 0.7);
+    color: var(--rose);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(8px);
+}
+
+.journey-arrow:hover {
+    background: var(--rose);
+    color: var(--white);
+    border-color: var(--rose);
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(232, 80, 106, 0.3);
+}
+
+.journey-arrow:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.journey-arrow:disabled:hover {
+    background: rgba(255, 255, 255, 0.7);
+    color: var(--rose);
+    border-color: rgba(232, 80, 106, 0.2);
+    box-shadow: none;
+}
+
+/* Dots */
+.journey-dots {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.journey-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(232, 80, 106, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.journey-dot.active {
+    background: var(--rose);
+    width: 28px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(232, 80, 106, 0.4);
+}
+
+.journey-dot:hover:not(.active) {
+    background: rgba(232, 80, 106, 0.4);
+    transform: scale(1.2);
 }
 
 /* ============================================
@@ -1432,46 +1576,29 @@ body {
         border-radius: 20px;
     }
 
-    .timeline-section .section-content {
-        max-width: 100%;
-    }
-
-    .timeline-line {
-        left: 20px;
-    }
-
-    .timeline-item {
-        width: 100%;
-        padding-left: 60px !important;
-        padding-right: 20px !important;
-        text-align: left !important;
-    }
-
-    .timeline-item.left,
-    .timeline-item.right {
-        left: 0;
-    }
-
-    .timeline-item.left .timeline-dot,
-    .timeline-item.right .timeline-dot {
-        left: 0 !important;
-        right: auto !important;
-    }
+    .journey-content { padding: 30px 20px 25px !important; }
+    .journey-stop { padding: 20px 15px; }
+    .stop-text { font-size: 0.9rem; }
+    .journey-stop .tenor-timeline { max-width: 180px; }
+    .journey-arrow { width: 36px; height: 36px; }
+    .milestone { font-size: 0.6rem; }
 
     .proposal-buttons { gap: 20px; }
     .countdown-timer { gap: 8px; }
     .countdown-number { min-width: 50px; }
     .countdown-unit { padding: 15px 18px; }
-    .letter-paper { padding: 25px; }
+    .letter-card { padding: 30px 22px !important; }
 
     .anniversary-circle {
-        width: 160px;
-        height: 160px;
+        width: 150px;
+        height: 150px;
+        margin-bottom: 25px;
     }
 
-    .anniversary-years { font-size: 4rem; }
-    .anniversary-stats { gap: 15px; }
-    .stat-item { padding: 15px 18px; }
+    .anniversary-years { font-size: 3.5rem; }
+    .anniversary-stats { gap: 12px; }
+    .stat-item { padding: 14px 16px; min-width: 110px; }
+    .stat-number { font-size: clamp(1.5rem, 3.5vw, 2.2rem); }
 
     .resilience-grid {
         grid-template-columns: 1fr;
@@ -1511,12 +1638,26 @@ body {
     .btn-yes { padding: 15px 45px; font-size: 1.1rem; }
     .btn-no { padding: 10px 30px; font-size: 0.9rem; }
 
-    .anniversary-circle { width: 140px; height: 140px; }
-    .anniversary-years { font-size: 3.5rem; }
-    .anniversary-label { font-size: 0.9rem; }
+    .anniversary-circle { width: 130px; height: 130px; margin-bottom: 20px; }
+    .anniversary-years { font-size: 3rem; }
+    .anniversary-label { font-size: 0.75rem; letter-spacing: 3px; }
+    .anniversary-stats { gap: 10px; }
+    .stat-item { padding: 12px 14px; min-width: 100px; }
+    .stat-number { font-size: 1.5rem; }
 
     .resilience-card { padding: 20px; }
     .resilience-quote { padding: 25px; }
+
+    .journey-content { padding: 25px 15px 20px !important; }
+    .journey-stop { padding: 15px 10px; }
+    .stop-icon { width: 44px; height: 44px; }
+    .sticker-journey { width: 28px; height: 28px; }
+    .stop-title { font-size: 1.2rem; }
+    .stop-text { font-size: 0.85rem; }
+    .journey-stop .tenor-timeline { max-width: 160px; }
+    .journey-nav { gap: 12px; }
+    .journey-dot { width: 8px; height: 8px; }
+    .journey-dot.active { width: 22px; }
 
     .tenor-hero { max-width: 150px; }
     .tenor-entrance { max-width: 140px; }
