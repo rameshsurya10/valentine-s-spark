@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Message For You</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ========== SVG STICKER DEFINITIONS ========== -->
+    <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+        <defs>
+            <!-- BEATING HEART -->
+            <symbol id="sticker-heart" viewBox="0 0 100 100">
+                <g transform="translate(50,52)">
+                    <path d="M0,30 A25,25,0,0,1,-50,0 A25,25,0,0,1,0,-20 A25,25,0,0,1,50,0 A25,25,0,0,1,0,30Z"
+                          fill="url(#heartGrad)" stroke="#c0354d" stroke-width="2">
+                        <animate attributeName="d"
+                            values="M0,30 A25,25,0,0,1,-50,0 A25,25,0,0,1,0,-20 A25,25,0,0,1,50,0 A25,25,0,0,1,0,30Z;
+                                    M0,34 A28,28,0,0,1,-54,0 A28,28,0,0,1,0,-24 A28,28,0,0,1,54,0 A28,28,0,0,1,0,34Z;
+                                    M0,30 A25,25,0,0,1,-50,0 A25,25,0,0,1,0,-20 A25,25,0,0,1,50,0 A25,25,0,0,1,0,30Z"
+                            dur="1.2s" repeatCount="indefinite"/>
+                    </path>
+                    <path d="M-15,-8 Q0,-18 15,-8" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="3" stroke-linecap="round"/>
+                </g>
+                <circle cx="28" cy="30" r="3" fill="rgba(255,255,255,0.6)">
+                    <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/>
+                </circle>
+            </symbol>
+
+            <!-- SPARKLING STAR -->
+            <symbol id="sticker-sparkle" viewBox="0 0 100 100">
+                <g transform="translate(50,50)">
+                    <polygon points="0,-35 8,-12 35,-12 14,4 22,28 0,14 -22,28 -14,4 -35,-12 -8,-12" fill="url(#goldGrad)" stroke="#b8860b" stroke-width="1">
+                        <animateTransform attributeName="transform" type="rotate" values="0;360" dur="8s" repeatCount="indefinite"/>
+                    </polygon>
+                    <circle cx="0" cy="0" r="12" fill="#fff5c0" opacity="0.8">
+                        <animate attributeName="r" values="10;14;10" dur="2s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/>
+                    </circle>
+                </g>
+                <circle cx="25" cy="25" r="3" fill="#f0d68a">
+                    <animate attributeName="opacity" values="0;1;0" dur="1.5s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="75" cy="30" r="2" fill="#f0d68a">
+                    <animate attributeName="opacity" values="0;1;0" dur="1.8s" begin="0.5s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="72" cy="72" r="2.5" fill="#f0d68a">
+                    <animate attributeName="opacity" values="0;1;0" dur="1.3s" begin="0.8s" repeatCount="indefinite"/>
+                </circle>
+            </symbol>
+
+            <!-- ROSE -->
+            <symbol id="sticker-rose" viewBox="0 0 100 100">
+                <g transform="translate(50,45)">
+                    <!-- Stem -->
+                    <path d="M0,20 Q5,35 2,50" fill="none" stroke="#2d8a4e" stroke-width="3" stroke-linecap="round"/>
+                    <!-- Leaves -->
+                    <ellipse cx="-10" cy="38" rx="8" ry="4" fill="#3ba55d" transform="rotate(-30,-10,38)">
+                        <animateTransform attributeName="transform" type="rotate" values="-30,-10,38;-25,-10,38;-30,-10,38" dur="3s" repeatCount="indefinite"/>
+                    </ellipse>
+                    <ellipse cx="12" cy="42" rx="7" ry="3.5" fill="#3ba55d" transform="rotate(25,12,42)">
+                        <animateTransform attributeName="transform" type="rotate" values="25,12,42;30,12,42;25,12,42" dur="3.5s" repeatCount="indefinite"/>
+                    </ellipse>
+                    <!-- Petals -->
+                    <ellipse cx="0" cy="-5" rx="16" ry="20" fill="#e8506a" opacity="0.7" transform="rotate(-15,0,-5)"/>
+                    <ellipse cx="0" cy="-5" rx="16" ry="20" fill="#f06292" opacity="0.7" transform="rotate(15,0,-5)"/>
+                    <ellipse cx="-8" cy="0" rx="14" ry="18" fill="#e8506a" opacity="0.8" transform="rotate(-30,-8,0)"/>
+                    <ellipse cx="8" cy="0" rx="14" ry="18" fill="#f06292" opacity="0.8" transform="rotate(30,8,0)"/>
+                    <!-- Center spiral -->
+                    <ellipse cx="0" cy="-2" rx="8" ry="10" fill="#c0354d"/>
+                    <ellipse cx="0" cy="-4" rx="5" ry="7" fill="#e8506a"/>
+                    <circle cx="0" cy="-6" r="3" fill="#f7a8b8">
+                        <animate attributeName="r" values="3;4;3" dur="3s" repeatCount="indefinite"/>
+                    </circle>
+                </g>
+            </symbol>
+
+            <!-- LIGHTNING / STORM -->
+            <symbol id="sticker-storm" viewBox="0 0 100 100">
+                <ellipse cx="50" cy="32" rx="28" ry="18" fill="#8e99a4"/>
+                <ellipse cx="35" cy="30" rx="20" ry="16" fill="#a0aab4"/>
+                <ellipse cx="65" cy="28" rx="18" ry="14" fill="#a0aab4"/>
+                <polygon points="48,42 38,62 46,62 34,85 58,56 48,56 60,42" fill="url(#goldGrad)" stroke="#d4a656" stroke-width="1">
+                    <animate attributeName="opacity" values="1;0.3;1;1;0.5;1" dur="2s" repeatCount="indefinite"/>
+                </polygon>
+                <circle cx="30" cy="70" r="2" fill="#7cb3d4" opacity="0">
+                    <animate attributeName="cy" values="50;80" dur="1s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0;0.8;0" dur="1s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="65" cy="70" r="2" fill="#7cb3d4" opacity="0">
+                    <animate attributeName="cy" values="48;78" dur="1.2s" begin="0.3s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0;0.7;0" dur="1.2s" begin="0.3s" repeatCount="indefinite"/>
+                </circle>
+            </symbol>
+
+            <!-- FLEXING MUSCLE / STRONG -->
+            <symbol id="sticker-strong" viewBox="0 0 100 100">
+                <g transform="translate(50,50)">
+                    <!-- Arm -->
+                    <path d="M-15,25 L-15,5 Q-15,-15 0,-15 Q15,-15 15,-5 L15,0 Q20,-20 10,-28 Q0,-32 -10,-28 Q-25,-20 -25,0 L-25,25Z"
+                          fill="#f4a460" stroke="#d4884d" stroke-width="2"/>
+                    <!-- Bicep bump -->
+                    <ellipse cx="-5" cy="-12" rx="14" ry="10" fill="#e8946a" opacity="0.5">
+                        <animate attributeName="ry" values="10;13;10" dur="1.5s" repeatCount="indefinite"/>
+                    </ellipse>
+                    <!-- Sparkle accents -->
+                    <g>
+                        <animate attributeName="opacity" values="0;1;0" dur="1.5s" repeatCount="indefinite"/>
+                        <line x1="22" y1="-25" x2="28" y2="-30" stroke="#f0d68a" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="30" y1="-15" x2="36" y2="-15" stroke="#f0d68a" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="25" y1="-5" x2="30" y2="0" stroke="#f0d68a" stroke-width="2" stroke-linecap="round"/>
+                    </g>
+                </g>
+            </symbol>
+
+            <!-- RAINBOW -->
+            <symbol id="sticker-rainbow" viewBox="0 0 100 100">
+                <g transform="translate(50,65)">
+                    <path d="M-40,0 A40,40 0 0,1 40,0" fill="none" stroke="#ff6b6b" stroke-width="5" opacity="0.9" stroke-linecap="round">
+                        <animate attributeName="stroke-dashoffset" values="130;0" dur="2s" fill="freeze"/>
+                        <animate attributeName="stroke-dasharray" values="0,130;130,0" dur="2s" fill="freeze"/>
+                    </path>
+                    <path d="M-34,0 A34,34 0 0,1 34,0" fill="none" stroke="#ffa36b" stroke-width="5" opacity="0.9" stroke-linecap="round"/>
+                    <path d="M-28,0 A28,28 0 0,1 28,0" fill="none" stroke="#ffd56b" stroke-width="5" opacity="0.9" stroke-linecap="round"/>
+                    <path d="M-22,0 A22,22 0 0,1 22,0" fill="none" stroke="#6bffa3" stroke-width="5" opacity="0.9" stroke-linecap="round"/>
+                    <path d="M-16,0 A16,16 0 0,1 16,0" fill="none" stroke="#6bb5ff" stroke-width="5" opacity="0.9" stroke-linecap="round"/>
+                    <path d="M-10,0 A10,10 0 0,1 10,0" fill="none" stroke="#b56bff" stroke-width="5" opacity="0.9" stroke-linecap="round"/>
+                </g>
+                <!-- Sparkles -->
+                <circle cx="20" cy="30" r="2.5" fill="#ffd56b">
+                    <animate attributeName="opacity" values="0;1;0" dur="2s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="80" cy="35" r="2" fill="#6bffa3">
+                    <animate attributeName="opacity" values="0;1;0" dur="1.5s" begin="0.5s" repeatCount="indefinite"/>
+                </circle>
+            </symbol>
+
+            <!-- SPARKLES / CONFETTI -->
+            <symbol id="sticker-sparkles" viewBox="0 0 100 100">
+                <g>
+                    <circle cx="50" cy="50" r="4" fill="#f0d68a">
+                        <animate attributeName="r" values="3;6;3" dur="1.5s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="1;0.5;1" dur="1.5s" repeatCount="indefinite"/>
+                    </circle>
+                    <line x1="50" y1="35" x2="50" y2="25" stroke="#f0d68a" stroke-width="2" stroke-linecap="round">
+                        <animate attributeName="y2" values="28;20;28" dur="1.5s" repeatCount="indefinite"/>
+                    </line>
+                    <line x1="50" y1="65" x2="50" y2="75" stroke="#f0d68a" stroke-width="2" stroke-linecap="round">
+                        <animate attributeName="y2" values="72;80;72" dur="1.5s" repeatCount="indefinite"/>
+                    </line>
+                    <line x1="35" y1="50" x2="25" y2="50" stroke="#f0d68a" stroke-width="2" stroke-linecap="round">
+                        <animate attributeName="x2" values="28;20;28" dur="1.5s" repeatCount="indefinite"/>
+                    </line>
+                    <line x1="65" y1="50" x2="75" y2="50" stroke="#f0d68a" stroke-width="2" stroke-linecap="round">
+                        <animate attributeName="x2" values="72;80;72" dur="1.5s" repeatCount="indefinite"/>
+                    </line>
+                </g>
+                <circle cx="30" cy="25" r="3" fill="#e8506a">
+                    <animate attributeName="opacity" values="0;1;0" dur="1.2s" begin="0.3s" repeatCount="indefinite"/>
+                    <animate attributeName="r" values="2;4;2" dur="1.2s" begin="0.3s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="75" cy="30" r="2.5" fill="#f7a8b8">
+                    <animate attributeName="opacity" values="0;1;0" dur="1.8s" begin="0.6s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="70" cy="75" r="3" fill="#d4a656">
+                    <animate attributeName="opacity" values="0;1;0" dur="1.4s" begin="0.9s" repeatCount="indefinite"/>
+                    <animate attributeName="r" values="2;4;2" dur="1.4s" begin="0.9s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="25" cy="70" r="2" fill="#f06292">
+                    <animate attributeName="opacity" values="0;1;0" dur="1.6s" begin="0.2s" repeatCount="indefinite"/>
+                </circle>
+            </symbol>
+
+            <!-- GIFT HEART -->
+            <symbol id="sticker-gift" viewBox="0 0 100 100">
+                <!-- Box bottom -->
+                <rect x="20" y="50" width="60" height="35" rx="4" fill="url(#heartGrad)" stroke="#c0354d" stroke-width="2"/>
+                <rect x="44" y="50" width="12" height="35" fill="#d4a656" opacity="0.6"/>
+                <!-- Box lid -->
+                <rect x="16" y="38" width="68" height="16" rx="4" fill="#e8506a" stroke="#c0354d" stroke-width="2">
+                    <animateTransform attributeName="transform" type="translate" values="0,0;0,-3;0,0" dur="2s" repeatCount="indefinite"/>
+                </rect>
+                <rect x="44" y="38" width="12" height="16" fill="#d4a656" opacity="0.6">
+                    <animateTransform attributeName="transform" type="translate" values="0,0;0,-3;0,0" dur="2s" repeatCount="indefinite"/>
+                </rect>
+                <!-- Bow -->
+                <ellipse cx="42" cy="38" rx="10" ry="7" fill="#d4a656" stroke="#b8860b" stroke-width="1" transform="rotate(-15,42,38)">
+                    <animateTransform attributeName="transform" type="translate" values="0,0;0,-3;0,0" dur="2s" repeatCount="indefinite"/>
+                </ellipse>
+                <ellipse cx="58" cy="38" rx="10" ry="7" fill="#d4a656" stroke="#b8860b" stroke-width="1" transform="rotate(15,58,38)">
+                    <animateTransform attributeName="transform" type="translate" values="0,0;0,-3;0,0" dur="2s" repeatCount="indefinite"/>
+                </ellipse>
+                <!-- Mini heart popping out -->
+                <g>
+                    <animateTransform attributeName="transform" type="translate" values="0,0;0,-8;0,0" dur="2s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0;1;0" dur="2s" repeatCount="indefinite"/>
+                    <path d="M50,22 A6,6,0,0,1,38,16 A6,6,0,0,1,50,10 A6,6,0,0,1,62,16 A6,6,0,0,1,50,22Z" fill="#f06292"/>
+                </g>
+            </symbol>
+
+            <!-- HEART HEAL (broken to whole) -->
+            <symbol id="sticker-heart-heal" viewBox="0 0 100 100">
+                <g transform="translate(50,52)">
+                    <!-- Left half -->
+                    <path d="M-2,28 A25,25,0,0,1,-50,0 A25,25,0,0,1,0,-18 L-2,28Z" fill="#e8506a">
+                        <animateTransform attributeName="transform" type="translate" values="-6,0;0,0;0,0" dur="3s" repeatCount="indefinite"/>
+                    </path>
+                    <!-- Right half -->
+                    <path d="M2,28 A25,25,0,0,0,50,0 A25,25,0,0,0,0,-18 L2,28Z" fill="#f06292">
+                        <animateTransform attributeName="transform" type="translate" values="6,0;0,0;0,0" dur="3s" repeatCount="indefinite"/>
+                    </path>
+                    <!-- Crack line (fades out) -->
+                    <line x1="0" y1="-18" x2="0" y2="28" stroke="#c0354d" stroke-width="2" stroke-dasharray="4,3">
+                        <animate attributeName="opacity" values="0.8;0;0" dur="3s" repeatCount="indefinite"/>
+                    </line>
+                    <!-- Glow when healed -->
+                    <circle cx="0" cy="5" r="15" fill="rgba(255,200,200,0.5)" opacity="0">
+                        <animate attributeName="opacity" values="0;0;0.6;0.6;0" dur="3s" repeatCount="indefinite"/>
+                        <animate attributeName="r" values="15;20;20;15" dur="3s" repeatCount="indefinite"/>
+                    </circle>
+                    <!-- Sparkle -->
+                    <circle cx="0" cy="-5" r="3" fill="#fff" opacity="0">
+                        <animate attributeName="opacity" values="0;0;0;1;0" dur="3s" repeatCount="indefinite"/>
+                    </circle>
+                </g>
+            </symbol>
+
+            <!-- CARING HANDS WITH HEART -->
+            <symbol id="sticker-care" viewBox="0 0 100 100">
+                <g transform="translate(50,55)">
+                    <!-- Left hand -->
+                    <path d="M-35,15 Q-35,0 -20,-5 Q-10,-8 -5,0" fill="none" stroke="#d4884d" stroke-width="5" stroke-linecap="round">
+                        <animateTransform attributeName="transform" type="rotate" values="5,0,0;0,0,0;5,0,0" dur="3s" repeatCount="indefinite"/>
+                    </path>
+                    <!-- Right hand -->
+                    <path d="M35,15 Q35,0 20,-5 Q10,-8 5,0" fill="none" stroke="#d4884d" stroke-width="5" stroke-linecap="round">
+                        <animateTransform attributeName="transform" type="rotate" values="-5,0,0;0,0,0;-5,0,0" dur="3s" repeatCount="indefinite"/>
+                    </path>
+                    <!-- Heart in hands -->
+                    <path d="M0,12 A10,10,0,0,1,-20,0 A10,10,0,0,1,0,-10 A10,10,0,0,1,20,0 A10,10,0,0,1,0,12Z" fill="#e8506a">
+                        <animate attributeName="d"
+                            values="M0,12 A10,10,0,0,1,-20,0 A10,10,0,0,1,0,-10 A10,10,0,0,1,20,0 A10,10,0,0,1,0,12Z;
+                                    M0,14 A12,12,0,0,1,-22,0 A12,12,0,0,1,0,-12 A12,12,0,0,1,22,0 A12,12,0,0,1,0,14Z;
+                                    M0,12 A10,10,0,0,1,-20,0 A10,10,0,0,1,0,-10 A10,10,0,0,1,20,0 A10,10,0,0,1,0,12Z"
+                            dur="1.5s" repeatCount="indefinite"/>
+                    </path>
+                    <circle cx="-5" cy="-3" r="2" fill="rgba(255,255,255,0.4)"/>
+                </g>
+            </symbol>
+
+            <!-- LOCK HEART (LOYALTY) -->
+            <symbol id="sticker-loyal" viewBox="0 0 100 100">
+                <g transform="translate(50,50)">
+                    <!-- Lock body -->
+                    <rect x="-18" y="-5" width="36" height="28" rx="5" fill="#d4a656" stroke="#b8860b" stroke-width="2"/>
+                    <!-- Lock shackle -->
+                    <path d="M-10,-5 L-10,-18 A10,10,0,0,1,10,-18 L10,-5" fill="none" stroke="#b8860b" stroke-width="4" stroke-linecap="round"/>
+                    <!-- Heart keyhole -->
+                    <path d="M0,14 A5,5,0,0,1,-8,6 A5,5,0,0,1,0,2 A5,5,0,0,1,8,6 A5,5,0,0,1,0,14Z" fill="#c0354d">
+                        <animate attributeName="fill" values="#c0354d;#e8506a;#c0354d" dur="2s" repeatCount="indefinite"/>
+                    </path>
+                </g>
+                <!-- Sparkle -->
+                <circle cx="72" cy="28" r="3" fill="#f0d68a">
+                    <animate attributeName="opacity" values="0;1;0" dur="1.5s" repeatCount="indefinite"/>
+                </circle>
+            </symbol>
+
+            <!-- LAUGHING FACE -->
+            <symbol id="sticker-laugh" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="35" fill="#ffd56b" stroke="#e8a020" stroke-width="2"/>
+                <!-- Eyes (happy squint) -->
+                <path d="M30,42 Q35,36 40,42" fill="none" stroke="#8b5e3c" stroke-width="3" stroke-linecap="round"/>
+                <path d="M60,42 Q65,36 70,42" fill="none" stroke="#8b5e3c" stroke-width="3" stroke-linecap="round"/>
+                <!-- Mouth (big laugh) -->
+                <path d="M32,56 Q50,78 68,56" fill="#e8506a" stroke="#c0354d" stroke-width="2"/>
+                <path d="M36,56 Q50,48 64,56" fill="#ffd56b"/>
+                <!-- Tear of joy -->
+                <ellipse cx="74" cy="48" rx="3" ry="5" fill="#7cb3d4" opacity="0.7">
+                    <animate attributeName="cy" values="48;55;48" dur="2s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" values="0.7;0;0.7" dur="2s" repeatCount="indefinite"/>
+                </ellipse>
+                <!-- Blush -->
+                <ellipse cx="28" cy="55" rx="6" ry="4" fill="#f7a8b8" opacity="0.5"/>
+                <ellipse cx="72" cy="55" rx="6" ry="4" fill="#f7a8b8" opacity="0.5"/>
+            </symbol>
+
+            <!-- HUG / COUPLE -->
+            <symbol id="sticker-hug" viewBox="0 0 100 100">
+                <g transform="translate(50,55)">
+                    <!-- Person 1 -->
+                    <circle cx="-12" cy="-25" r="10" fill="#f4a460"/>
+                    <ellipse cx="-12" cy="0" rx="12" ry="18" fill="#e8506a"/>
+                    <!-- Person 2 -->
+                    <circle cx="12" cy="-25" r="10" fill="#d4884d"/>
+                    <ellipse cx="12" cy="0" rx="12" ry="18" fill="#7cb3d4"/>
+                    <!-- Arms hugging -->
+                    <path d="M-24,0 Q-20,-5 0,-5 Q20,-5 24,0" fill="none" stroke="#f4a460" stroke-width="5" stroke-linecap="round" opacity="0.8">
+                        <animate attributeName="d" values="M-24,0 Q-20,-5 0,-5 Q20,-5 24,0;M-24,-2 Q-20,-8 0,-8 Q20,-8 24,-2;M-24,0 Q-20,-5 0,-5 Q20,-5 24,0" dur="3s" repeatCount="indefinite"/>
+                    </path>
+                    <!-- Heart above -->
+                    <g transform="translate(0,-42)">
+                        <path d="M0,6 A4,4,0,0,1,-8,0 A4,4,0,0,1,0,-4 A4,4,0,0,1,8,0 A4,4,0,0,1,0,6Z" fill="#e8506a">
+                            <animate attributeName="d"
+                                values="M0,6 A4,4,0,0,1,-8,0 A4,4,0,0,1,0,-4 A4,4,0,0,1,8,0 A4,4,0,0,1,0,6Z;
+                                        M0,7 A5,5,0,0,1,-9,0 A5,5,0,0,1,0,-5 A5,5,0,0,1,9,0 A5,5,0,0,1,0,7Z;
+                                        M0,6 A4,4,0,0,1,-8,0 A4,4,0,0,1,0,-4 A4,4,0,0,1,8,0 A4,4,0,0,1,0,6Z"
+                                dur="1.5s" repeatCount="indefinite"/>
+                        </path>
+                    </g>
+                </g>
+            </symbol>
+
+            <!-- INFINITY -->
+            <symbol id="sticker-infinity" viewBox="0 0 100 100">
+                <g transform="translate(50,50)">
+                    <path d="M0,0 C-10,-20 -35,-20 -35,0 C-35,20 -10,20 0,0 C10,-20 35,-20 35,0 C35,20 10,20 0,0Z"
+                          fill="none" stroke="url(#heartGrad)" stroke-width="5" stroke-linecap="round"
+                          stroke-dasharray="200" stroke-dashoffset="200">
+                        <animate attributeName="stroke-dashoffset" values="200;0" dur="3s" fill="freeze"/>
+                    </path>
+                    <!-- Glowing trail -->
+                    <circle cx="0" cy="0" r="4" fill="#e8506a">
+                        <animateMotion dur="4s" repeatCount="indefinite"
+                            path="M0,0 C-10,-20 -35,-20 -35,0 C-35,20 -10,20 0,0 C10,-20 35,-20 35,0 C35,20 10,20 0,0Z"/>
+                    </circle>
+                </g>
+            </symbol>
+
+            <!-- COUPLE ILLUSTRATION (for anniversary) -->
+            <symbol id="sticker-couple" viewBox="0 0 200 180">
+                <!-- Him -->
+                <circle cx="75" cy="55" r="18" fill="#d4884d"/>
+                <rect x="58" y="72" width="34" height="50" rx="10" fill="#4a7fb5"/>
+                <path d="M58,85 Q40,80 35,95" fill="none" stroke="#4a7fb5" stroke-width="8" stroke-linecap="round">
+                    <animate attributeName="d" values="M58,85 Q40,80 35,95;M58,85 Q40,75 30,85;M58,85 Q40,80 35,95" dur="4s" repeatCount="indefinite"/>
+                </path>
+                <!-- Her -->
+                <circle cx="125" cy="55" r="18" fill="#f4a460"/>
+                <rect x="108" y="72" width="34" height="50" rx="10" fill="#e8506a"/>
+                <path d="M142,85 Q160,80 165,95" fill="none" stroke="#e8506a" stroke-width="8" stroke-linecap="round">
+                    <animate attributeName="d" values="M142,85 Q160,80 165,95;M142,85 Q160,75 170,85;M142,85 Q160,80 165,95" dur="4s" repeatCount="indefinite"/>
+                </path>
+                <!-- Hair -->
+                <path d="M60,50 Q65,30 80,35 Q95,30 90,50" fill="#5a3d2b"/>
+                <path d="M110,45 Q115,25 130,28 Q145,25 140,50 Q145,55 140,60 L110,55 Q105,50 110,45" fill="#3d2b1a"/>
+                <!-- Heart between them -->
+                <g transform="translate(100,40)">
+                    <path d="M0,10 A8,8,0,0,1,-16,0 A8,8,0,0,1,0,-8 A8,8,0,0,1,16,0 A8,8,0,0,1,0,10Z" fill="#e8506a">
+                        <animate attributeName="d"
+                            values="M0,10 A8,8,0,0,1,-16,0 A8,8,0,0,1,0,-8 A8,8,0,0,1,16,0 A8,8,0,0,1,0,10Z;
+                                    M0,12 A10,10,0,0,1,-18,0 A10,10,0,0,1,0,-10 A10,10,0,0,1,18,0 A10,10,0,0,1,0,12Z;
+                                    M0,10 A8,8,0,0,1,-16,0 A8,8,0,0,1,0,-8 A8,8,0,0,1,16,0 A8,8,0,0,1,0,10Z"
+                            dur="1.5s" repeatCount="indefinite"/>
+                    </path>
+                </g>
+            </symbol>
+
+            <!-- GRADIENTS -->
+            <linearGradient id="heartGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#f06292"/>
+                <stop offset="50%" style="stop-color:#e8506a"/>
+                <stop offset="100%" style="stop-color:#c0354d"/>
+            </linearGradient>
+            <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#f0d68a"/>
+                <stop offset="100%" style="stop-color:#d4a656"/>
+            </linearGradient>
+        </defs>
+    </svg>
+
+    <!-- Entrance Overlay -->
+    <div id="entrance-overlay">
+        <div class="entrance-particles" id="entrance-particles"></div>
+        <div class="bokeh-layer">
+            <div class="bokeh b1"></div>
+            <div class="bokeh b2"></div>
+            <div class="bokeh b3"></div>
+            <div class="bokeh b4"></div>
+            <div class="bokeh b5"></div>
+            <div class="bokeh b6"></div>
+            <div class="bokeh b7"></div>
+        </div>
+        <div class="entrance-center">
+            <div class="entrance-gif tenor-entrance">
+                <div class="tenor-gif-embed" data-postid="15146873" data-share-method="host" data-aspect-ratio="1.18519" data-width="100%"></div>
+            </div>
+            <h2 class="entrance-title">For You</h2>
+            <p class="entrance-sub">I made something special, just for you...</p>
+            <button class="open-btn" id="open-btn">Open Your Surprise</button>
+        </div>
+    </div>
+
+    <!-- Floating Elements Container -->
+    <div id="floating-hearts" class="floating-container"></div>
+    <div id="rose-petals" class="floating-container"></div>
+    <div id="sparkles" class="floating-container"></div>
+
+    <!-- Music Control -->
+    <button id="music-toggle" class="music-btn" title="Toggle Music">
+        <span class="music-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e8506a" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3" fill="#e8506a"/><circle cx="18" cy="16" r="3" fill="#e8506a"/></svg>
+        </span>
+        <span class="music-waves">
+            <span></span><span></span><span></span>
+        </span>
+    </button>
+    <audio id="bg-music" loop>
+        <source src="assets/music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Main Content -->
+    <main id="main-content" class="hidden">
+
+        <!-- Section 1: Hero -->
+        <section id="hero" class="section hero-section">
+            <div class="bokeh-layer">
+                <div class="bokeh b1"></div>
+                <div class="bokeh b2"></div>
+                <div class="bokeh b3"></div>
+                <div class="bokeh b4"></div>
+                <div class="bokeh b5"></div>
+            </div>
+            <div class="hero-content">
+                <div class="hero-heart-sticker tenor-hero">
+                    <div class="tenor-gif-embed" data-postid="15146873" data-share-method="host" data-aspect-ratio="1.18519" data-width="100%"></div>
+                </div>
+                <h1 class="hero-title">
+                    <span class="line1">To My Dearest</span>
+                    <span class="hero-name">My Love</span>
+                </h1>
+                <p class="hero-subtitle">I made this little corner of the internet just for you...</p>
+                <div class="scroll-indicator">
+                    <span>Scroll Down</span>
+                    <div class="scroll-arrow">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f7a8b8" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Anniversary Counter -->
+        <section id="anniversary" class="section anniversary-section">
+            <div class="section-content">
+                <h2 class="section-title">Together Since 2019</h2>
+                <div class="section-illustration-wrap tenor-anniversary">
+                    <div class="tenor-gif-embed" data-postid="16778838173071819035" data-share-method="host" data-aspect-ratio="1.06667" data-width="100%"></div>
+                </div>
+                <div class="anniversary-container">
+                    <div class="anniversary-circle">
+                        <div class="anniversary-years">7</div>
+                        <div class="anniversary-label">Years Strong</div>
+                    </div>
+                    <div class="anniversary-stats">
+                        <div class="stat-item" data-animate>
+                            <div class="stat-number" id="total-days">0</div>
+                            <div class="stat-label">Days Together</div>
+                        </div>
+                        <div class="stat-item" data-animate>
+                            <div class="stat-number" id="total-hours">0</div>
+                            <div class="stat-label">Hours of Love</div>
+                        </div>
+                        <div class="stat-item" data-animate>
+                            <div class="stat-number" id="total-minutes">0</div>
+                            <div class="stat-label">Beautiful Minutes</div>
+                        </div>
+                    </div>
+                    <p class="anniversary-text">And counting every moment with you...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Love Letter -->
+        <section id="love-letter" class="section letter-section">
+            <div class="bokeh-layer">
+                <div class="bokeh b1"></div>
+                <div class="bokeh b2"></div>
+                <div class="bokeh b3"></div>
+                <div class="bokeh b4"></div>
+            </div>
+            <div class="section-content">
+                <h2 class="section-title">A Letter From My Heart</h2>
+                <div class="letter-paper">
+                    <div class="letter-content">
+                        <p class="letter-greeting">My Dearest Love,</p>
+                        <p>Seven years. Seven incredible years since 2019 when you first walked into my life and changed everything forever.</p>
+                        <p>We've been through it all, haven't we? The struggles that tested us, the fights that made us cry, the misunderstandings that hurt our hearts. There were moments when the road felt impossible, when everything seemed against us.</p>
+                        <p>But here's what I've learned: None of that matters. Because through every storm, every tear, every difficult night — one truth remained unshaken: <strong>I cannot live without you.</strong> And you can't live without me. That's how I know this is real.</p>
+                        <p>Thank you for never giving up on us. Thank you for always caring, even when things got hard. Thank you for staying loyal when the world tried to distract us. Thank you for choosing me, every single day, even on the days when I didn't deserve it.</p>
+                        <p>The most enjoyable moments of my life have all been with you. Every laugh, every smile, every quiet moment of peace — they're all painted with your love.</p>
+                        <p>We're not perfect. We're real. And that's exactly why we're unbreakable.</p>
+                        <p class="letter-closing">Forever fighting for us, forever loving you,</p>
+                        <p class="letter-signature">— Your Love</p>
+                    </div>
+                    <div class="tenor-letter">
+                        <div class="tenor-gif-embed" data-postid="26994841" data-share-method="host" data-aspect-ratio="1.23552" data-width="100%"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Our Timeline -->
+        <section id="timeline" class="section timeline-section">
+            <div class="bokeh-layer">
+                <div class="bokeh b1"></div>
+                <div class="bokeh b2"></div>
+                <div class="bokeh b3"></div>
+                <div class="bokeh b4"></div>
+                <div class="bokeh b5"></div>
+            </div>
+            <div class="section-content">
+                <h2 class="section-title">Our 7-Year Journey</h2>
+                <div class="timeline">
+                    <div class="timeline-line"></div>
+
+                    <div class="timeline-item left" data-animate>
+                        <div class="timeline-dot"><svg class="sticker-timeline"><use href="#sticker-sparkle"/></svg></div>
+                        <div class="timeline-card">
+                            <span class="timeline-date">2019</span>
+                            <h3>Where It All Began</h3>
+                            <p>The year that changed everything. Two souls found each other and started a journey that would redefine the meaning of love and commitment.</p>
+                            <div class="tenor-timeline">
+                                <div class="tenor-gif-embed" data-postid="17279028432328774963" data-share-method="host" data-aspect-ratio="1.25161" data-width="100%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item right" data-animate>
+                        <div class="timeline-dot"><svg class="sticker-timeline"><use href="#sticker-rose"/></svg></div>
+                        <div class="timeline-card">
+                            <span class="timeline-date">2020-2021</span>
+                            <h3>The Early Days</h3>
+                            <p>Learning each other, discovering what makes you smile, understanding your dreams. Every moment felt like a beautiful adventure waiting to unfold.</p>
+                            <div class="tenor-timeline">
+                                <div class="tenor-gif-embed" data-postid="9811180983392599154" data-share-method="host" data-aspect-ratio="1.2585" data-width="100%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item left" data-animate>
+                        <div class="timeline-dot"><svg class="sticker-timeline"><use href="#sticker-storm"/></svg></div>
+                        <div class="timeline-card">
+                            <span class="timeline-date">2022</span>
+                            <h3>The Storms We Weathered</h3>
+                            <p>Not every day was easy. We faced struggles, fights, and misunderstandings that tested everything we had. But we never let go.</p>
+                            <div class="tenor-timeline">
+                                <div class="tenor-gif-embed" data-postid="9606913731571256349" data-share-method="host" data-aspect-ratio="1" data-width="100%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item right" data-animate>
+                        <div class="timeline-dot"><svg class="sticker-timeline"><use href="#sticker-strong"/></svg></div>
+                        <div class="timeline-card">
+                            <span class="timeline-date">2023</span>
+                            <h3>Stronger Together</h3>
+                            <p>Through every hardship, we learned that our love isn't about perfection — it's about never giving up. We chose each other, again and again.</p>
+                            <div class="tenor-timeline">
+                                <div class="tenor-gif-embed" data-postid="20631778" data-share-method="host" data-aspect-ratio="1.18959" data-width="100%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item left" data-animate>
+                        <div class="timeline-dot"><svg class="sticker-timeline"><use href="#sticker-rainbow"/></svg></div>
+                        <div class="timeline-card">
+                            <span class="timeline-date">2024</span>
+                            <h3>Unbreakable Bond</h3>
+                            <p>The world tried to distract us, but we stayed loyal. We realized that what we have is rare, precious, and worth fighting for every single day.</p>
+                            <div class="tenor-timeline">
+                                <div class="tenor-gif-embed" data-postid="21330222" data-share-method="host" data-aspect-ratio="1" data-width="100%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item right" data-animate>
+                        <div class="timeline-dot"><svg class="sticker-timeline"><use href="#sticker-sparkles"/></svg></div>
+                        <div class="timeline-card">
+                            <span class="timeline-date">2025</span>
+                            <h3>Enjoying Every Moment</h3>
+                            <p>The most beautiful year yet. Every laugh, every shared silence, every adventure — all made magical because it's with you.</p>
+                            <div class="tenor-timeline">
+                                <div class="tenor-gif-embed" data-postid="2041647800164851984" data-share-method="host" data-aspect-ratio="1" data-width="100%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item left" data-animate>
+                        <div class="timeline-dot"><svg class="sticker-timeline"><use href="#sticker-gift"/></svg></div>
+                        <div class="timeline-card">
+                            <span class="timeline-date">2026 & Forever</span>
+                            <h3>This Is Just The Beginning</h3>
+                            <p>Seven years down, forever to go. We've proven that real love isn't about perfection — it's about two people who refuse to give up on each other.</p>
+                            <div class="tenor-timeline">
+                                <div class="tenor-gif-embed" data-postid="5276916061692521740" data-share-method="host" data-aspect-ratio="0.738956" data-width="100%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Through Thick and Thin -->
+        <section id="resilience" class="section resilience-section">
+            <div class="bokeh-layer">
+                <div class="bokeh b1"></div>
+                <div class="bokeh b2"></div>
+                <div class="bokeh b3"></div>
+                <div class="bokeh b4"></div>
+                <div class="bokeh b5"></div>
+            </div>
+            <div class="section-content">
+                <h2 class="section-title">What Makes Us Unbreakable</h2>
+                <div class="resilience-grid">
+                    <div class="resilience-card" data-animate>
+                        <div class="resilience-icon tenor-card">
+                            <div class="tenor-gif-embed" data-postid="2214353323573558540" data-share-method="host" data-aspect-ratio="0.564257" data-width="100%"></div>
+                        </div>
+                        <h3>We Fight, But We Never Quit</h3>
+                        <p>Yes, we've had our battles. We've said words we regret, faced moments we wish we could undo. But we always find our way back to each other.</p>
+                    </div>
+                    <div class="resilience-card" data-animate>
+                        <div class="resilience-icon tenor-card">
+                            <div class="tenor-gif-embed" data-postid="7452858079759594201" data-share-method="host" data-aspect-ratio="0.666667" data-width="100%"></div>
+                        </div>
+                        <h3>We Care, Always</h3>
+                        <p>Even in our darkest moments, we never stopped caring for each other. That's the difference between us and everyone else — our love runs deeper.</p>
+                    </div>
+                    <div class="resilience-card" data-animate>
+                        <div class="resilience-icon tenor-card">
+                            <div class="tenor-gif-embed" data-postid="21013195" data-share-method="host" data-aspect-ratio="1" data-width="100%"></div>
+                        </div>
+                        <h3>We Stay Loyal</h3>
+                        <p>The world tried to pull us apart. Others tried to catch our attention. But we chose US. Every single time, without hesitation.</p>
+                    </div>
+                    <div class="resilience-card" data-animate>
+                        <div class="resilience-icon tenor-card">
+                            <div class="tenor-gif-embed" data-postid="26120752" data-share-method="host" data-aspect-ratio="1.18519" data-width="100%"></div>
+                        </div>
+                        <h3>We Still Laugh Together</h3>
+                        <p>Through all the struggles, we never lost the joy. Our most enjoyable moments are together — and that's what keeps us strong.</p>
+                    </div>
+                    <div class="resilience-card" data-animate>
+                        <div class="resilience-icon tenor-card">
+                            <div class="tenor-gif-embed" data-postid="27020681" data-share-method="host" data-aspect-ratio="1.18959" data-width="100%"></div>
+                        </div>
+                        <h3>We Can't Live Without Each Other</h3>
+                        <p>This is the ultimate truth. We've tried to imagine life apart — and it's impossible. You're not just my love, you're my life.</p>
+                    </div>
+                    <div class="resilience-card" data-animate>
+                        <div class="resilience-icon tenor-card">
+                            <div class="tenor-gif-embed" data-postid="10559687409936913186" data-share-method="host" data-aspect-ratio="0.666667" data-width="100%"></div>
+                        </div>
+                        <h3>We Choose Forever</h3>
+                        <p>Every day is a choice. And every day, I choose you. Through the good, the bad, and everything in between — it's always you.</p>
+                    </div>
+                </div>
+                <div class="resilience-quote">
+                    <p>"Real love isn't about finding someone perfect.<br>It's about finding someone worth fighting for."</p>
+                    <span>— And I'll fight for us, always.</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Countdown -->
+        <section id="countdown" class="section countdown-section">
+            <div class="section-content">
+                <h2 class="section-title">Counting Every Second Until...</h2>
+                <p class="countdown-subtitle">Valentine's Day 2026</p>
+                <div class="countdown-timer">
+                    <div class="countdown-unit">
+                        <span class="countdown-number" id="days">00</span>
+                        <span class="countdown-label">Days</span>
+                    </div>
+                    <div class="countdown-separator">:</div>
+                    <div class="countdown-unit">
+                        <span class="countdown-number" id="hours">00</span>
+                        <span class="countdown-label">Hours</span>
+                    </div>
+                    <div class="countdown-separator">:</div>
+                    <div class="countdown-unit">
+                        <span class="countdown-number" id="minutes">00</span>
+                        <span class="countdown-label">Minutes</span>
+                    </div>
+                    <div class="countdown-separator">:</div>
+                    <div class="countdown-unit">
+                        <span class="countdown-number" id="seconds">00</span>
+                        <span class="countdown-label">Seconds</span>
+                    </div>
+                </div>
+                <p class="countdown-message">...until I get to celebrate love with the most amazing person I know</p>
+            </div>
+        </section>
+
+        <!-- Section 7: The Big Question -->
+        <section id="proposal" class="section proposal-section">
+            <div class="bokeh-layer">
+                <div class="bokeh b1"></div>
+                <div class="bokeh b2"></div>
+                <div class="bokeh b3"></div>
+                <div class="bokeh b4"></div>
+                <div class="bokeh b5"></div>
+                <div class="bokeh b6"></div>
+            </div>
+            <div class="section-content">
+                <div class="proposal-decoration">
+                    <div class="proposal-deco-line"></div>
+                    <svg class="proposal-deco-heart" viewBox="0 0 100 100"><use href="#sticker-heart"/></svg>
+                    <div class="proposal-deco-line"></div>
+                </div>
+                <h2 class="proposal-title">I Have One Question...</h2>
+                <p class="proposal-question">Will You Be My Valentine?</p>
+                <div class="proposal-buttons">
+                    <button class="btn-yes" id="btn-yes">Yes!</button>
+                    <button class="btn-no" id="btn-no">No</button>
+                </div>
+                <div id="yes-response" class="response hidden">
+                    <div class="celebration-hearts"></div>
+                    <h2 class="response-title">You Made Me The Happiest!</h2>
+                    <p class="response-text">I promise to make this the most special Valentine's Day ever!</p>
+                    <div class="tenor-response">
+                        <div class="tenor-gif-embed" data-postid="11092575278240837627" data-share-method="host" data-aspect-ratio="1" data-width="100%"></div>
+                    </div>
+                    <p class="forever-text">You + Me = Forever</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+    <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+</body>
+</html>
