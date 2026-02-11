@@ -4,7 +4,8 @@
       "WebFetch(domain:tenor.com)",
       "Bash(pip3 install:*)",
       "Bash(yt-dlp:*)",
-      "Bash(ffprobe:*)"
+      "Bash(ffprobe:*)",
+      "Bash(ls:*)"
     ]
   }
 }

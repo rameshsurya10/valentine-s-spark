@@ -396,10 +396,51 @@
         </div>
     </div>
 
+    <!-- Countdown Gate (shown after entrance, hides page until Valentine's Day) -->
+    <div id="countdown-gate" class="countdown-gate hidden">
+        <div class="bokeh-layer">
+            <div class="bokeh b1"></div>
+            <div class="bokeh b2"></div>
+            <div class="bokeh b3"></div>
+            <div class="bokeh b4"></div>
+            <div class="bokeh b5"></div>
+            <div class="bokeh b6"></div>
+        </div>
+        <div class="gate-content">
+            <p class="gate-heart">💝</p>
+            <h2 class="gate-title">Something Special Is Coming...</h2>
+            <p class="gate-subtitle">Your surprise reveals when the countdown hits zero</p>
+            <div class="gate-timer">
+                <div class="gate-unit">
+                    <span class="gate-number" id="gate-days">00</span>
+                    <span class="gate-label">Days</span>
+                </div>
+                <div class="gate-separator">:</div>
+                <div class="gate-unit">
+                    <span class="gate-number" id="gate-hours">00</span>
+                    <span class="gate-label">Hours</span>
+                </div>
+                <div class="gate-separator">:</div>
+                <div class="gate-unit">
+                    <span class="gate-number" id="gate-minutes">00</span>
+                    <span class="gate-label">Minutes</span>
+                </div>
+                <div class="gate-separator">:</div>
+                <div class="gate-unit">
+                    <span class="gate-number" id="gate-seconds">00</span>
+                    <span class="gate-label">Seconds</span>
+                </div>
+            </div>
+            <p class="gate-message">Valentine's Day 2026</p>
+            <p class="gate-tease">I made something just for you... be patient, my love</p>
+        </div>
+    </div>
+
     <!-- Floating Elements Container -->
     <div id="floating-hearts" class="floating-container"></div>
     <div id="rose-petals" class="floating-container"></div>
-    <div id="sparkles" class="floating-container"></div>
+    <div id="floating-chocolates" class="floating-container"></div>
+    <div id="floating-stars" class="floating-container"></div>
 
     <!-- Music Control -->
     <button id="music-toggle" class="music-btn" title="Toggle Music">
@@ -410,8 +451,14 @@
             <span></span><span></span><span></span>
         </span>
     </button>
+    <audio id="countdown-music" loop>
+        <source src="assets/countdown-music.mp3" type="audio/mpeg">
+    </audio>
     <audio id="bg-music" loop>
         <source src="assets/music.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="yes-music" loop>
+        <source src="assets/yes-music.mp3" type="audio/mpeg">
     </audio>
 
     <!-- Main Content -->
@@ -475,32 +522,8 @@
             </div>
         </section>
 
-        <!-- Section 3: Love Letter -->
-        <section id="love-letter" class="section letter-section">
-            <div class="bokeh-layer">
-                <div class="bokeh b1"></div>
-                <div class="bokeh b2"></div>
-                <div class="bokeh b3"></div>
-                <div class="bokeh b4"></div>
-            </div>
-            <div class="section-content letter-card">
-                <h2 class="section-title">A Letter From My Heart</h2>
-                <div class="letter-content">
-                    <p class="letter-greeting">My Dearest Love,</p>
-                    <p>Seven years. Seven incredible years since 2019 when you first walked into my life and changed everything forever.</p>
-                    <p>We've been through it all, haven't we? The struggles that tested us, the fights that made us cry, the misunderstandings that hurt our hearts. There were moments when the road felt impossible, when everything seemed against us.</p>
-                    <p>But here's what I've learned: None of that matters. Because through every storm, every tear, every difficult night — one truth remained unshaken: <strong>I cannot live without you.</strong> And you can't live without me. That's how I know this is real.</p>
-                    <p>Thank you for never giving up on us. Thank you for always caring, even when things got hard. Thank you for staying loyal when the world tried to distract us. Thank you for choosing me, every single day, even on the days when I didn't deserve it.</p>
-                    <p>The most enjoyable moments of my life have all been with you. Every laugh, every smile, every quiet moment of peace — they're all painted with your love.</p>
-                    <p>We're not perfect. We're real. And that's exactly why we're unbreakable.</p>
-                    <p class="letter-closing">Forever fighting for us, forever loving you,</p>
-                    <p class="letter-signature">— Your Love</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 4: Our Journey Ride -->
-        <section id="timeline" class="section journey-section">
+        <!-- Section 3: Our Timeline -->
+        <section id="timeline" class="section timeline-section">
             <div class="bokeh-layer">
                 <div class="bokeh b1"></div>
                 <div class="bokeh b2"></div>
@@ -508,214 +531,99 @@
                 <div class="bokeh b4"></div>
                 <div class="bokeh b5"></div>
             </div>
-            <div class="section-content journey-content">
+            <div class="section-content">
                 <h2 class="section-title">Our 7-Year Journey</h2>
+                <div class="timeline">
+                    <div class="timeline-line"></div>
 
-                <!-- Road Progress -->
-                <div class="journey-road">
-                    <div class="journey-road-fill" id="journey-road-fill"></div>
-                    <div class="journey-milestones">
-                        <span class="milestone active" data-stop="0">2019</span>
-                        <span class="milestone" data-stop="1">'20</span>
-                        <span class="milestone" data-stop="2">'22</span>
-                        <span class="milestone" data-stop="3">'23</span>
-                        <span class="milestone" data-stop="4">'24</span>
-                        <span class="milestone" data-stop="5">'25</span>
-                        <span class="milestone" data-stop="6">&infin;</span>
-                    </div>
-                </div>
-
-                <!-- Carousel Viewport -->
-                <div class="journey-viewport">
-                    <div class="journey-track" id="journey-track">
-
-                        <div class="journey-stop active">
-                            <div class="stop-icon"><svg class="sticker-journey"><use href="#sticker-sparkle"/></svg></div>
-                            <span class="stop-year">2019</span>
-                            <h3 class="stop-title">Where It All Began</h3>
-                            <p class="stop-text">The year that changed everything. Two souls found each other and started a journey that would redefine the meaning of love and commitment.</p>
+                    <div class="timeline-item left" data-animate>
+                        <div class="timeline-dot"><svg class="sticker-timeline"><use href="#sticker-sparkle"/></svg></div>
+                        <div class="timeline-card">
+                            <span class="timeline-date">2019</span>
+                            <h3>👀 Those Eyes In The Crowd</h3>
+                            <p>School life? Nobody even caught my attention. Zero. Nada. 😶 Then one random day, in a crowd full of faces — YOUR eyes found mine. Not my heart, not my brain — your eyes went straight for my SOUL. 💫 And just like that, this boy was done for. Game over. 🎮❤️</p>
                             <div class="tenor-timeline">
                                 <div class="tenor-gif-embed" data-postid="17279028432328774963" data-share-method="host" data-aspect-ratio="1.25161" data-width="100%"></div>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="journey-stop">
-                            <div class="stop-icon"><svg class="sticker-journey"><use href="#sticker-rose"/></svg></div>
-                            <span class="stop-year">2020-2021</span>
-                            <h3 class="stop-title">The Early Days</h3>
-                            <p class="stop-text">Learning each other, discovering what makes you smile, understanding your dreams. Every moment felt like a beautiful adventure waiting to unfold.</p>
+                    <div class="timeline-item right" data-animate>
+                        <div class="timeline-dot"><svg class="sticker-timeline"><use href="#sticker-rose"/></svg></div>
+                        <div class="timeline-card">
+                            <span class="timeline-date">2020-2021</span>
+                            <h3>🌧️ The Raindrop That Froze Time</h3>
+                            <p>Picture this — rain falling, you beside me, and suddenly time just... stopped. ⏸️ A single raindrop hung in the air like even the sky was shook by how beautiful that moment was. 🥹 No one in my ENTIRE life ever gave me that feeling. You didn't just touch my heart — you wove an invisible thread between our souls. 🧵✨</p>
                             <div class="tenor-timeline">
                                 <div class="tenor-gif-embed" data-postid="9811180983392599154" data-share-method="host" data-aspect-ratio="1.2585" data-width="100%"></div>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="journey-stop">
-                            <div class="stop-icon"><svg class="sticker-journey"><use href="#sticker-storm"/></svg></div>
-                            <span class="stop-year">2022</span>
-                            <h3 class="stop-title">The Storms We Weathered</h3>
-                            <p class="stop-text">Not every day was easy. We faced struggles, fights, and misunderstandings that tested everything we had. But we never let go.</p>
+                    <div class="timeline-item left" data-animate>
+                        <div class="timeline-dot"><svg class="sticker-timeline"><use href="#sticker-storm"/></svg></div>
+                        <div class="timeline-card">
+                            <span class="timeline-date">2022</span>
+                            <h3>💔 Your Battles, My Biggest Regret</h3>
+                            <p>You fought battles that would've broken most people — and you survived every single one like the warrior queen you are. 👑 Meanwhile, I stood there like a clueless potato 🥔 who couldn't do anything to stop them. That haunts me. I'm bowing down with the deepest sorry my heart can give. 🙇‍♂️ You deserved a shield, and I promise to become one. 🛡️</p>
                             <div class="tenor-timeline">
                                 <div class="tenor-gif-embed" data-postid="9606913731571256349" data-share-method="host" data-aspect-ratio="1" data-width="100%"></div>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="journey-stop">
-                            <div class="stop-icon"><svg class="sticker-journey"><use href="#sticker-strong"/></svg></div>
-                            <span class="stop-year">2023</span>
-                            <h3 class="stop-title">Stronger Together</h3>
-                            <p class="stop-text">Through every hardship, we learned that our love isn't about perfection — it's about never giving up. We chose each other, again and again.</p>
+                    <div class="timeline-item right" data-animate>
+                        <div class="timeline-dot"><svg class="sticker-timeline"><use href="#sticker-strong"/></svg></div>
+                        <div class="timeline-card">
+                            <span class="timeline-date">2023</span>
+                            <h3>🛡️ My Human Shield</h3>
+                            <p>In all these years, you NEVER let anyone come at me. Not a single person. Not anywhere. You stood beside me like a bodyguard and in front of me like a WALL. 🧱💪 You handled every storm, every drama, every situation — while this idiot just stood behind you like "she's got this" 😂. I admire you more than you'll ever know. 🥹💗</p>
                             <div class="tenor-timeline">
                                 <div class="tenor-gif-embed" data-postid="20631778" data-share-method="host" data-aspect-ratio="1.18959" data-width="100%"></div>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="journey-stop">
-                            <div class="stop-icon"><svg class="sticker-journey"><use href="#sticker-rainbow"/></svg></div>
-                            <span class="stop-year">2024</span>
-                            <h3 class="stop-title">Unbreakable Bond</h3>
-                            <p class="stop-text">The world tried to distract us, but we stayed loyal. We realized that what we have is rare, precious, and worth fighting for every single day.</p>
+                    <div class="timeline-item left" data-animate>
+                        <div class="timeline-dot"><svg class="sticker-timeline"><use href="#sticker-rainbow"/></svg></div>
+                        <div class="timeline-card">
+                            <span class="timeline-date">2024</span>
+                            <h3>🪽 A Soul Straight From Heaven</h3>
+                            <p>Your character? Absolutely HEAVENLY. 😇 Ever since I was a kid, I had this picture in my head of the kind of person I'd want as my wife someday. And then you showed up — and you weren't just close to that picture, you WERE the picture. 🖼️✨ The universe really said "here you go, king, you don't deserve her but take her anyway." 😭💘</p>
                             <div class="tenor-timeline">
                                 <div class="tenor-gif-embed" data-postid="21330222" data-share-method="host" data-aspect-ratio="1" data-width="100%"></div>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="journey-stop">
-                            <div class="stop-icon"><svg class="sticker-journey"><use href="#sticker-sparkles"/></svg></div>
-                            <span class="stop-year">2025</span>
-                            <h3 class="stop-title">Enjoying Every Moment</h3>
-                            <p class="stop-text">The most beautiful year yet. Every laugh, every shared silence, every adventure — all made magical because it's with you.</p>
+                    <div class="timeline-item right" data-animate>
+                        <div class="timeline-dot"><svg class="sticker-timeline"><use href="#sticker-sparkles"/></svg></div>
+                        <div class="timeline-card">
+                            <span class="timeline-date">2025</span>
+                            <h3>🤝 After Every Fight, You STAYED</h3>
+                            <p>After every fight, every dumb argument, every time I acted like a total clown 🤡 — you didn't leave me. Not for one minute. Not even for one SECOND. ⏱️ You stayed, you handled it, you handled ME. That's not just love — that's a superpower. 🦸‍♀️ No one else in this world is capable of what you do. You're literally built different. 💎</p>
                             <div class="tenor-timeline">
                                 <div class="tenor-gif-embed" data-postid="2041647800164851984" data-share-method="host" data-aspect-ratio="1" data-width="100%"></div>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="journey-stop">
-                            <div class="stop-icon"><svg class="sticker-journey"><use href="#sticker-gift"/></svg></div>
-                            <span class="stop-year">2026 & Forever</span>
-                            <h3 class="stop-title">This Is Just The Beginning</h3>
-                            <p class="stop-text">Seven years down, forever to go. We've proven that real love isn't about perfection — it's about two people who refuse to give up on each other.</p>
+                    <div class="timeline-item left" data-animate>
+                        <div class="timeline-dot"><svg class="sticker-timeline"><use href="#sticker-gift"/></svg></div>
+                        <div class="timeline-card">
+                            <span class="timeline-date">2026 & Forever</span>
+                            <h3>🚀 My Promise To You</h3>
+                            <p>Starting NOW — I'm going to build a life for you that you never even imagined was possible. 🏗️✨ A level so high it'll make your head spin (in a good way 😜). The whole relationship? UPGRADED. 📈 Because you believed in me when absolutely no one else did. And I will spend every second making sure it was worth it. This is just the beginning, baby. 💍🔥♾️</p>
                             <div class="tenor-timeline">
                                 <div class="tenor-gif-embed" data-postid="5276916061692521740" data-share-method="host" data-aspect-ratio="0.738956" data-width="100%"></div>
                             </div>
                         </div>
-
                     </div>
-                </div>
-
-                <!-- Navigation -->
-                <div class="journey-nav">
-                    <button class="journey-arrow journey-prev" id="journey-prev" aria-label="Previous">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-                    </button>
-                    <div class="journey-dots" id="journey-dots">
-                        <button class="journey-dot active" data-index="0"></button>
-                        <button class="journey-dot" data-index="1"></button>
-                        <button class="journey-dot" data-index="2"></button>
-                        <button class="journey-dot" data-index="3"></button>
-                        <button class="journey-dot" data-index="4"></button>
-                        <button class="journey-dot" data-index="5"></button>
-                        <button class="journey-dot" data-index="6"></button>
-                    </div>
-                    <button class="journey-arrow journey-next" id="journey-next" aria-label="Next">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-                    </button>
                 </div>
             </div>
         </section>
 
-        <!-- Section 5: Through Thick and Thin -->
-        <section id="resilience" class="section resilience-section">
-            <div class="bokeh-layer">
-                <div class="bokeh b1"></div>
-                <div class="bokeh b2"></div>
-                <div class="bokeh b3"></div>
-                <div class="bokeh b4"></div>
-                <div class="bokeh b5"></div>
-            </div>
-            <div class="section-content">
-                <h2 class="section-title">What Makes Us Unbreakable</h2>
-                <div class="resilience-grid">
-                    <div class="resilience-card" data-animate>
-                        <div class="resilience-icon tenor-card">
-                            <div class="tenor-gif-embed" data-postid="2214353323573558540" data-share-method="host" data-aspect-ratio="0.564257" data-width="100%"></div>
-                        </div>
-                        <h3>We Fight, But We Never Quit</h3>
-                        <p>Yes, we've had our battles. We've said words we regret, faced moments we wish we could undo. But we always find our way back to each other.</p>
-                    </div>
-                    <div class="resilience-card" data-animate>
-                        <div class="resilience-icon tenor-card">
-                            <div class="tenor-gif-embed" data-postid="7452858079759594201" data-share-method="host" data-aspect-ratio="0.666667" data-width="100%"></div>
-                        </div>
-                        <h3>We Care, Always</h3>
-                        <p>Even in our darkest moments, we never stopped caring for each other. That's the difference between us and everyone else — our love runs deeper.</p>
-                    </div>
-                    <div class="resilience-card" data-animate>
-                        <div class="resilience-icon tenor-card">
-                            <div class="tenor-gif-embed" data-postid="21013195" data-share-method="host" data-aspect-ratio="1" data-width="100%"></div>
-                        </div>
-                        <h3>We Stay Loyal</h3>
-                        <p>The world tried to pull us apart. Others tried to catch our attention. But we chose US. Every single time, without hesitation.</p>
-                    </div>
-                    <div class="resilience-card" data-animate>
-                        <div class="resilience-icon tenor-card">
-                            <div class="tenor-gif-embed" data-postid="26120752" data-share-method="host" data-aspect-ratio="1.18519" data-width="100%"></div>
-                        </div>
-                        <h3>We Still Laugh Together</h3>
-                        <p>Through all the struggles, we never lost the joy. Our most enjoyable moments are together — and that's what keeps us strong.</p>
-                    </div>
-                    <div class="resilience-card" data-animate>
-                        <div class="resilience-icon tenor-card">
-                            <div class="tenor-gif-embed" data-postid="27020681" data-share-method="host" data-aspect-ratio="1.18959" data-width="100%"></div>
-                        </div>
-                        <h3>We Can't Live Without Each Other</h3>
-                        <p>This is the ultimate truth. We've tried to imagine life apart — and it's impossible. You're not just my love, you're my life.</p>
-                    </div>
-                    <div class="resilience-card" data-animate>
-                        <div class="resilience-icon tenor-card">
-                            <div class="tenor-gif-embed" data-postid="10559687409936913186" data-share-method="host" data-aspect-ratio="0.666667" data-width="100%"></div>
-                        </div>
-                        <h3>We Choose Forever</h3>
-                        <p>Every day is a choice. And every day, I choose you. Through the good, the bad, and everything in between — it's always you.</p>
-                    </div>
-                </div>
-                <div class="resilience-quote">
-                    <p>"Real love isn't about finding someone perfect.<br>It's about finding someone worth fighting for."</p>
-                    <span>— And I'll fight for us, always.</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 6: Countdown -->
-        <section id="countdown" class="section countdown-section">
-            <div class="section-content">
-                <h2 class="section-title">Counting Every Second Until...</h2>
-                <p class="countdown-subtitle">Valentine's Day 2026</p>
-                <div class="countdown-timer">
-                    <div class="countdown-unit">
-                        <span class="countdown-number" id="days">00</span>
-                        <span class="countdown-label">Days</span>
-                    </div>
-                    <div class="countdown-separator">:</div>
-                    <div class="countdown-unit">
-                        <span class="countdown-number" id="hours">00</span>
-                        <span class="countdown-label">Hours</span>
-                    </div>
-                    <div class="countdown-separator">:</div>
-                    <div class="countdown-unit">
-                        <span class="countdown-number" id="minutes">00</span>
-                        <span class="countdown-label">Minutes</span>
-                    </div>
-                    <div class="countdown-separator">:</div>
-                    <div class="countdown-unit">
-                        <span class="countdown-number" id="seconds">00</span>
-                        <span class="countdown-label">Seconds</span>
-                    </div>
-                </div>
-                <p class="countdown-message">...until I get to celebrate love with the most amazing person I know</p>
-            </div>
-        </section>
-
-        <!-- Section 7: The Big Question -->
+        <!-- Section 5: The Big Question -->
         <section id="proposal" class="section proposal-section">
             <div class="bokeh-layer">
                 <div class="bokeh b1"></div>
@@ -725,12 +633,7 @@
                 <div class="bokeh b5"></div>
                 <div class="bokeh b6"></div>
             </div>
-            <div class="section-content">
-                <div class="proposal-decoration">
-                    <div class="proposal-deco-line"></div>
-                    <svg class="proposal-deco-heart" viewBox="0 0 100 100"><use href="#sticker-heart"/></svg>
-                    <div class="proposal-deco-line"></div>
-                </div>
+            <div class="section-content proposal-card">
                 <h2 class="proposal-title">I Have One Question...</h2>
                 <p class="proposal-question">Will You Be My Valentine?</p>
                 <div class="proposal-buttons">
@@ -738,13 +641,62 @@
                     <button class="btn-no" id="btn-no">No</button>
                 </div>
                 <div id="yes-response" class="response hidden">
-                    <div class="celebration-hearts"></div>
                     <h2 class="response-title">You Made Me The Happiest!</h2>
                     <p class="response-text">I promise to make this the most special Valentine's Day ever!</p>
                     <div class="tenor-response">
                         <div class="tenor-gif-embed" data-postid="11092575278240837627" data-share-method="host" data-aspect-ratio="1" data-width="100%"></div>
                     </div>
                     <p class="forever-text">You + Me = Forever</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Love Letters (shown after Yes click, below proposal) -->
+        <section id="love-letter" class="section letter-section hidden">
+            <div class="bokeh-layer">
+                <div class="bokeh b1"></div>
+                <div class="bokeh b2"></div>
+                <div class="bokeh b3"></div>
+                <div class="bokeh b4"></div>
+            </div>
+            <div class="section-content letter-card">
+                <h2 class="section-title">A Letter From My Heart</h2>
+                <div class="letter-content">
+                    <p class="letter-greeting">My Dearest Love, 💌</p>
+                    <p>Seven years. Seven whole, beautiful, crazy, messy, magical years since 2019 — when you walked into my life and flipped my entire world upside down. Best thing that ever happened to me. 💫</p>
+                    <p>There are millions of girls out there, but not one before you and not one after you has ever made me feel like this. <strong>You are the one I fell for.</strong> The only one. Not second, not maybe — YOU. My love. My life. My everything. 💖</p>
+                    <p>Okay, I'll be honest — I'm a certified idiot when it comes to romance. 😅 You ask me to be romantic and I literally freeze like a buffering video. I don't know how this love happened, how it grew this deep, or how to put something THIS massive into tiny little words. But just because I can't say it doesn't mean I don't feel it — I feel it in every single breath I take. Every. Single. One. 🥺</p>
+                    <p>I love riding with you 🏍️, watching movies with you 🎬, walking with you under the stars 🌙. But you know what I love the MOST? <strong>Listening to you talk.</strong> Seriously — talk as much as you want, go on for hours, I don't care. I will hear every word like it's my favourite song on repeat. 🎵 But please don't ask me to talk back too much... because honestly? I have NO idea what to say. 😂😂</p>
+                    <p>My love for you has grown so insanely much that nobody in this world knows how deep it goes — not even I can measure it anymore! 📏❌ It just keeps growing. Every day. Every moment. It's honestly getting out of control and I'm NOT complaining. 🤭💕</p>
+                    <p>Now here comes the hard part... 😔 I've made so many mistakes. I started fights over the dumbest things. Sometimes I broke you. Sometimes I made you so mad you probably wanted to throw a slipper at me (and I would've deserved it 🩴😂). I'm genuinely sorry for every single one of those moments. For the times I was stubborn, for the times I didn't understand, for the times I hurt you when all you ever did was love me with your whole heart. 💔➡️❤️‍🩹</p>
+                    <p>But here's my promise 🤞 — from this day forward, I WILL annoy you (a lot), disturb you (even more), cringe with you, make you laugh until you cry, steal your food 🍕, hog the blanket, and create a million more ridiculous memories with you. Because <strong>you're MINE</strong>, and don't you EVER forget that. 😤💍</p>
+                    <p>My papa 🥹, I want to be with you always. Every single moment. Every sunrise ☀️ and every late-night talk 🌃. I love you so so so much — more than all the stars in the sky could ever count. ✨💗</p>
+                    <p class="letter-closing">Forever yours, forever fighting for us, forever your biggest fan 🏆,</p>
+                    <p class="letter-signature">— Your Adorable Idiot Who Loves You More Than Words Can Ever Say 💘</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="resilience" class="section letter-section hidden">
+            <div class="bokeh-layer">
+                <div class="bokeh b1"></div>
+                <div class="bokeh b2"></div>
+                <div class="bokeh b3"></div>
+                <div class="bokeh b4"></div>
+                <div class="bokeh b5"></div>
+            </div>
+            <div class="section-content letter-card future-letter">
+                <h2 class="section-title">For Our Future 💫</h2>
+                <div class="letter-content">
+                    <p class="letter-greeting">My love of life, 🤍</p>
+                    <p>I've been thinking about us — not just who we are today, but who we're going to become together. And honestly? It makes me smile like an idiot. 😊</p>
+                    <p>I want mornings where I wake up and the first thing I see is your face. ☀️ I want late-night talks that go on until 3am about absolutely nothing and everything. 🌙 I want to cook for you (and probably burn it 🔥😂), travel with you to places we've only seen in reels, and build a home that feels like US — messy, loud, full of love, and maybe a little chaotic. 🏡💕</p>
+                    <p>I want to be the reason you never have to struggle alone again. Every battle from now on? <strong>We fight it together.</strong> 🤝 Every dream you have? I'm going to be right beside you cheering so loud the whole world hears me. 📣🥹</p>
+                    <p>I want to grow old with you. I want us to be that annoying old couple who still holds hands, still fights over the remote 📺, still steals each other's food, and still looks at each other like we're 18 again. 👴👵❤️</p>
+                    <p>The future is ours, papa. And I promise you — it's going to be SO beautiful that we'll look back at these 7 years and say, <strong>"that was just the warmup."</strong> 🚀✨</p>
+                    <p>Whatever comes next — good days, hard days, boring days, crazy days — I want ALL of them. As long as they're with you. 💗</p>
+                    <p class="letter-closing">To infinity and beyond (yes, I stole that from Buzz Lightyear 😂🚀),</p>
+                    <p class="letter-signature">— Your Forever Person 💘♾️</p>
                 </div>
             </div>
         </section>
